@@ -14,23 +14,13 @@ def derive(equation,variable):
                 # TODO:Do Deriation for U*V in it
                 derivedValue=equation
             else :
-                # Choose the split term to multiply
                 multiplier=''
+                # Choose the split term to multiply
                 for multiplicationSplit in multiplicationSplits:
                     if(variable in multiplicationSplit):
                         # Derive the value for variable
                         # Handling Powers
-                        if multiplicationSplit.index(variable)+1 < len(multiplicationSplit) and "^" in multiplicationSplit[multiplicationSplit.index(variable)+1]:
-                            powerValue=multiplicationSplit[(multiplicationSplit.index(variable)+2):]
-                            if powerValue.isdigit():
-                                powerValue = int(powerValue)
-                                powerValue -=1
-                                powerValue = str(powerValue)
-                            else:
-                                powerValue ="("+powerValue+"-1)"
-                            multiplicationSplit=multiplicationSplit[:(multiplicationSplit.index(variable)+2)]+str(powerValue)
-                        else:
-                            multiplicationSplit=multiplicationSplit.replace(variable,"1")
+                        multiplicationSplit=derivePower(multiplicationSplit,variable)
                     derivedValue+=multiplier+multiplicationSplit
                     multiplier='*'
             return derivedValue
@@ -45,7 +35,6 @@ def mergeEquation(splitEquation,variable):
     add=''
     for subEquation in splitEquation:
         derivation = derive(subEquation,variable)
-#        print("Derivation gave "+derivation)
         if (derivation[0].startswith("+") or derivation[0].startswith("-") ) :
             equationString+=derivation
         else :
@@ -66,5 +55,20 @@ def splitEquation(equation,variable):
             elif len(negatedEquation[i])!=0 :
                 splitEquation.append(negatedEquation[i])
     return splitEquation
+
+def derivePower(terms,variable):
+    if terms.index(variable)+1 < len(terms) and "^" in terms[terms.index(variable)+1]:
+        powerValue=terms[(terms.index(variable)+2):]
+        if powerValue.isdigit():
+            powerValue = int(powerValue)
+            powerValue -=1
+            powerValue = str(powerValue)
+        else:
+            powerValue ="("+powerValue+"-1)"
+        terms=terms[:(terms.index(variable)+2)]+str(powerValue)
+    else:
+        terms=terms.replace(variable,"1")
+    return terms
+
 
 print(derive("2*X^2-y+b-z*X^r","X"))
