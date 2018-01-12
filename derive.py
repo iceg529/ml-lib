@@ -25,9 +25,9 @@ def derive(equation,variable):
                     multiplier='*'
             return derivedValue
         elif equation.startswith("-"):
-            return "-"+str(1)
+            return "-"+str(0)
         else :
-            return str(1)  
+            return str(0)
     return mergeEquation(splitEquationList,variable)
     
 def mergeEquation(splitEquation,variable):
@@ -59,16 +59,18 @@ def splitEquation(equation,variable):
 def derivePower(terms,variable):
     if terms.index(variable)+1 < len(terms) and "^" in terms[terms.index(variable)+1]:
         powerValue=terms[(terms.index(variable)+2):]
-        if powerValue.isdigit():
+        powerValue=powerValue.replace('(','')
+        powerValue=powerValue.replace(')','')
+        if powerValue.lstrip("-").isdigit():
             powerValue = int(powerValue)
             powerValue -=1
-            powerValue = str(powerValue)
+            powerValue = str(powerValue+1)+"*"+variable+"^"+str(powerValue)
         else:
-            powerValue ="("+powerValue+"-1)"
-        terms=terms[:(terms.index(variable)+2)]+str(powerValue)
+            powerValue ="("+powerValue+"*"+variable+"^("+powerValue+"-1))"
+        terms=terms[:(terms.index(variable))]+str(powerValue)
     else:
         terms=terms.replace(variable,"1")
     return terms
 
 
-print(derive("2*X^2-y+b-z*X^r","X"))
+print(derive("2*X^2-y+d+b*X^4-z*X^r","X"))
