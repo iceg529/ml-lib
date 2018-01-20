@@ -7,6 +7,10 @@ Implementations include:
 
 <b>Supervised Machine Learning:</b>
 
-  - Linear Regression in One Variable
-  - Multi Variant Linear Regression
-  - Polynomial Regression
+	<b>Regression:</b>
+	  - Linear Regression in One Variable
+	  - Multi Variant Linear Regression
+	  - Polynomial Regression
+
+	<b>Classification:</b>
+	  - Logistic Regression
