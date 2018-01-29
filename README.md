@@ -14,3 +14,6 @@ Implementations include:
 
 	<b>Classification:</b>
 	  - Logistic Regression
+	
+	<b>Neural Networks:</b>
+	  - Basic 2 Layer Neural Networks with Sigmoid Activation functions only
